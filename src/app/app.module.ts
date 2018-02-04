@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { CommonSharedModule } from './CommonShared/common.module';
@@ -10,7 +10,9 @@ import { CommonSharedModule } from './CommonShared/common.module';
     AppComponent
   ],
   imports: [
-    BrowserModule, CommonSharedModule
+    BrowserModule, 
+    CommonSharedModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
