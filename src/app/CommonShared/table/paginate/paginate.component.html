@@ -1,0 +1,15 @@
+<div class="pagination pull-right">
+  <ul>
+    <li ng-class="{disabled: currentPage == 0}"  (click)="prevPage()">
+      <span href ng-click="prevPage()">« Prev</span>
+    </li>
+
+    <li *ngFor="let page of noOfPages" (click)="getData(page)">
+      <span>{{page+1}}</span>
+    </li>
+
+    <li ng-class="{disabled: (currentPage) == pagedItems.length - 1}" (click)="nextPage()">
+      <span ng-click="nextPage()">Next »</span>
+    </li>
+  </ul>
+</div>

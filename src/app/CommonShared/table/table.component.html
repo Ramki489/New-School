@@ -8,8 +8,17 @@
       </ng-container>
     </tr>
   </thead>
+
+  <tfoot>
+    <td colspan="6">
+      <app-paginate [totalLength]='displayDatalength' 
+      [itemsPerPage]='itemsPerPage'
+      [currentPage]='currentPage'
+      (notifyCurrentPage)="listenCurrentPage($event)"></app-paginate>
+    </td>
+  </tfoot>
   <tbody>
-    <ng-container *ngFor="let data of displayData">
+    <ng-container *ngFor="let data of this.tableDisplayData">
       <tr *ngIf="data.id">
         <th scope="row">{{data.id}}</th>
         <td>Mark</td>
@@ -17,6 +26,5 @@
         <td>@mdo</td>
       </tr>
     </ng-container>
-
   </tbody>
 </table>

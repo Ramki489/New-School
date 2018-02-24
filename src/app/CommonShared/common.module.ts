@@ -10,13 +10,14 @@ import { MockDataService } from './service/mockdata.service';
 import { HttpClientService } from './service/httpClient.service';
 import { keysPipe } from './pipe/keyspipe.pipe';
 import { headerKeysPipe } from './pipe/headerkeys.pipe';
+import { PaginateComponent } from './table/paginate/paginate.component';
 
 @NgModule({
   imports: [
     CommonModule,
     HttpClientModule
   ],
-  declarations: [HeaderComponent, FooterComponent, TableComponent, keysPipe, headerKeysPipe],
+  declarations: [HeaderComponent, FooterComponent, TableComponent, keysPipe, headerKeysPipe, PaginateComponent],
   providers: [MockDataService, HttpClientService],
   exports: [HeaderComponent, FooterComponent, TableComponent]
 })
