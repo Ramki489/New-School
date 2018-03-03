@@ -21,7 +21,6 @@ export class TableComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-
     for (let i = 0; i < this.displayData.length; i++) {
       this.displayData[i].id = i + 1;
       this.displayData[i].name = 'Test' + i + 1;
