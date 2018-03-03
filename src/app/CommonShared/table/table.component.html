@@ -1,6 +1,7 @@
-<table class="table table-striped">
+<input [(ngModel)]="searchText" placeholder="search text goes here"><table class="table table-striped">
   <thead>
     <tr>
+        <!-- <tr *ngFor="let row of (rows | sortTable: sortType : {'key': key, 'dt': dt}) | searchTableRow : searchTerm : ['name']"> -->
       <ng-container *ngFor="let col of displayData[0] | headerkeys">
         <th *ngIf="!col.isOptional">
           {{col.name}}
@@ -10,7 +11,7 @@
   </thead>
 
   <tfoot>
-    <td colspan="6">
+    <td colspan="4">
       <app-paginate [totalLength]='displayDatalength' 
       [itemsPerPage]='itemsPerPage'
       [currentPage]='currentPage'
@@ -18,7 +19,7 @@
     </td>
   </tfoot>
   <tbody>
-    <ng-container *ngFor="let data of this.tableDisplayData">
+    <ng-container *ngFor="let data of this.tableDisplayData | filter : searchText">
       <tr *ngIf="data.id">
         <th scope="row">{{data.id}}</th>
         <td>Mark</td>
