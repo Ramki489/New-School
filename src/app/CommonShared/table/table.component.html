@@ -1,7 +1,19 @@
-<input [(ngModel)]="searchText" placeholder="search text goes here"><table class="table table-striped">
+
+<div class="row">
+  <div class="col-sm-6">
+    <label>No Of Pages</label>
+    <select [(ngModel)]="itemsPerPage" (ngModelChange)='onOptionsSelected($event)' class='select-option' required >
+        <option class='option' *ngFor='let option of options' [value]="option">{{option}}</option>
+    </select>
+  </div>
+  <div class="col-sm-6">
+    <input [(ngModel)]="searchText" placeholder="search text goes here">
+  </div>
+</div>
+<table class="table table-striped">
   <thead>
     <tr>
-        <!-- <tr *ngFor="let row of (rows | sortTable: sortType : {'key': key, 'dt': dt}) | searchTableRow : searchTerm : ['name']"> -->
+      <!-- <tr *ngFor="let row of (rows | sortTable: sortType : {'key': key, 'dt': dt}) | searchTableRow : searchTerm : ['name']"> -->
       <ng-container *ngFor="let col of displayData[0] | headerkeys">
         <th *ngIf="!col.isOptional">
           {{col.name}}
@@ -12,20 +24,20 @@
 
   <tfoot>
     <td colspan="4">
-      <app-paginate [totalLength]='displayDatalength' 
-      [itemsPerPage]='itemsPerPage'
-      [currentPage]='currentPage'
-      (notifyCurrentPage)="listenCurrentPage($event)"></app-paginate>
+      <app-paginate [totalLength]='displayDatalength' [itemsPerPage]='itemsPerPage' [currentPage]='currentPage' (notifyCurrentPage)="listenCurrentPage($event)"></app-paginate>
     </td>
   </tfoot>
   <tbody>
-    <ng-container *ngFor="let data of this.tableDisplayData | filter : searchText">
+    <ng-container *ngFor="let data of tableDisplayData | filter : searchText">
       <tr *ngIf="data.id">
-        <th scope="row">{{data.id}}</th>
+        <td scope="row">{{data.id}}</td>
         <td>Mark</td>
         <td>Otto</td>
         <td>@mdo</td>
       </tr>
+      <!-- <tr>
+          <td colspan="4">Oops!!! We are not able to find the records that you are trying to search</td>
+      </tr> -->
     </ng-container>
   </tbody>
 </table>

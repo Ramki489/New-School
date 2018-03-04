@@ -2,7 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { Column } from '../interface/column.interface';
 
 @Pipe({ name: 'headerkeys' })
-export class headerKeysPipe implements PipeTransform {
+export class headerKeysPipe implements PipeTransform {  
     transform(value, args: string[]) {
         let firstrow = value;
         console.log(firstrow, '====================firstrow')

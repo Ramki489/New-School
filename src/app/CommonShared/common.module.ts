@@ -13,6 +13,7 @@ import { keysPipe } from './pipe/keyspipe.pipe';
 import { headerKeysPipe } from './pipe/headerkeys.pipe';
 import { FilterPipe } from './pipe/filter.pipe';
 import { PaginateComponent } from './table/paginate/paginate.component';
+import { tableService } from './table/table.service';
 
 @NgModule({
   imports: [
@@ -22,7 +23,7 @@ import { PaginateComponent } from './table/paginate/paginate.component';
   declarations: [HeaderComponent, FooterComponent, TableComponent,
     keysPipe, headerKeysPipe, FilterPipe,
     PaginateComponent],
-  providers: [MockDataService, HttpClientService],
+  providers: [MockDataService, HttpClientService, tableService],
   exports: [HeaderComponent, FooterComponent, TableComponent]
 })
 export class CommonSharedModule { }

@@ -1,5 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
 
+
+import { tableService } from '../table.service';
 @Component({
   selector: 'app-paginate',
   templateUrl: './paginate.component.html'
@@ -12,32 +15,49 @@ export class PaginateComponent implements OnInit {
   private pagesLength: number = 5;
   private noOfPages: Array<number> = [];
   private finalLength: number;
-  constructor() { }
+
+  subscription: Subscription;
+  constructor(private tableservice: tableService) {
+    this.subscription = this.tableservice.getMessage().subscribe(itemsPerPage => {
+      this.itemsPerPage = itemsPerPage;
+      this.getRangeOfPages();
+    });
+  }
+
+
 
   ngOnInit() {
     this.getRangeOfPages();
   }
 
+  ngOnDestroy() {
+    // unsubscribe to ensure no memory leaks
+    this.subscription.unsubscribe();
+  }
+
   private getRangeOfPages() {
     console.log(this.currentPage, '------------------This is the current page');
-    let pages = this.totalLength / this.itemsPerPage;
+    let pages = Math.round(this.totalLength / this.itemsPerPage);
     this.noOfPages = [];
     let currentPage = this.currentPage;
     if (currentPage < pages && currentPage + 5 <= pages) {
       for (let i = 0; i < this.pagesLength; i++) {
-        this.noOfPages.push(currentPage++);
+        if (i >= 0) {
+          this.noOfPages.push(currentPage++);
+        }
       }
-
       console.log('first loop ');
     } else
       if (this.currentPage + 5 > pages) {
         for (let i = pages - 1; i >= pages - this.pagesLength; i--) {
-          this.noOfPages.push(i);
+          if (i >= 0) {
+            this.noOfPages.push(i);
+          }
         }
         this.noOfPages = this.noOfPages.reverse();
         console.log('second loop ')
       }
-    this.finalLength = this.noOfPages[this.noOfPages.length-1]+1;
+    this.finalLength = this.noOfPages[this.noOfPages.length - 1] + 1;
     console.log(this.currentPage, 'after the loop', this.finalLength);
   }
 
@@ -64,4 +84,13 @@ export class PaginateComponent implements OnInit {
     this.Notify();
   }
 
+  private firstPage() {
+    this.currentPage = 0;
+    this.Notify();
+  }
+  private lastPage() {
+    let pages = Math.floor(this.totalLength / this.itemsPerPage);
+    this.currentPage = pages;
+    this.Notify();
+  }
 }

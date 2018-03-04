@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { students } from '../mockdata/students.mock';
+import { tableService } from './table.service';
 /**
  * This component has generic feature which will fetch the first row of the data set
  * Can make the Columns optional using the checkbox
@@ -15,10 +16,13 @@ export class TableComponent implements OnInit {
   private displayData: any = students;
   private tableDisplayData: any = [];
   private displayDatalength: number = this.displayData.length;
-  private itemsPerPage: number = 10;
+  private itemsPerPage: number = 500;
   private groupedPages: any = [];
+  private options: Array<number> = [10, 20, 50, 100, 500];
   private currentPage: number = 0;
-  constructor() { }
+  constructor( private tableservice:tableService) {
+
+}
 
   ngOnInit() {
     for (let i = 0; i < this.displayData.length; i++) {
@@ -28,6 +32,7 @@ export class TableComponent implements OnInit {
     this.groupingPage();
     this.currentPageData();
   }
+
   private groupingPage() {
     for (let i = 0; i < this.displayData.length; i++) {
       if (i % this.itemsPerPage === 0) {
@@ -47,6 +52,19 @@ export class TableComponent implements OnInit {
   private currentPageData() {
     this.tableDisplayData = this.groupedPages[this.currentPage];
     console.log('Test', this.tableDisplayData);
+  }
+
+  // private mySorter(a, b) {
+  //   let x = a.title.toLowerCase();
+  //   let y = b.title.toLowerCase();
+  //   return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+  // }
+
+  private onOptionsSelected(event) {
+    this.itemsPerPage = event;
+    this.groupingPage();
+    this.currentPageData();
+    this.tableservice.sendMessage(this.itemsPerPage);
   }
 }
 
