@@ -14,6 +14,7 @@ import { headerKeysPipe } from './pipe/headerkeys.pipe';
 import { FilterPipe } from './pipe/filter.pipe';
 import { PaginateComponent } from './table/paginate/paginate.component';
 import { tableService } from './table/table.service';
+import { OrderrByPipe } from './pipe/oderby.pipe'
 
 @NgModule({
   imports: [
@@ -21,7 +22,7 @@ import { tableService } from './table/table.service';
     HttpClientModule, FormsModule
   ],
   declarations: [HeaderComponent, FooterComponent, TableComponent,
-    keysPipe, headerKeysPipe, FilterPipe,
+    keysPipe, headerKeysPipe, FilterPipe, OrderrByPipe,
     PaginateComponent],
   providers: [MockDataService, HttpClientService, tableService],
   exports: [HeaderComponent, FooterComponent, TableComponent]

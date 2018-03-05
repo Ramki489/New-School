@@ -20,7 +20,8 @@ export class PaginateComponent implements OnInit {
   constructor(private tableservice: tableService) {
     this.subscription = this.tableservice.getMessage().subscribe(itemsPerPage => {
       this.itemsPerPage = itemsPerPage;
-      this.getRangeOfPages();
+      this.currentPage = 0 ;
+      this.Notify();
     });
   }
 

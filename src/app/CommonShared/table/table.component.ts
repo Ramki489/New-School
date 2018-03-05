@@ -14,12 +14,23 @@ export class TableComponent implements OnInit {
   //http://jsfiddle.net/SAWsA/10654/ == Table Paginations
   //@Input() table:string;
   private displayData: any = students;
-  private tableDisplayData: any = [];
+  private tableDisplayData: Array<any> = [];
   private displayDatalength: number = this.displayData.length;
-  private itemsPerPage: number = 500;
+  private itemsPerPage: number = 10;
   private groupedPages: any = [];
   private options: Array<number> = [10, 20, 50, 100, 500];
   private currentPage: number = 0;
+
+  // Declare local variable
+  isDesc: boolean = true;
+  column: string = 'id';
+  direction: number;
+   // Change sort function to this: 
+   sort(property){
+    this.isDesc = !this.isDesc; //change the direction    
+    this.column = property;
+    this.direction = this.isDesc ? 1 : -1;
+   }
   constructor( private tableservice:tableService) {
 
 }
@@ -28,6 +39,7 @@ export class TableComponent implements OnInit {
     for (let i = 0; i < this.displayData.length; i++) {
       this.displayData[i].id = i + 1;
       this.displayData[i].name = 'Test' + i + 1;
+      this.displayData[i].standard = Math.floor(100/i+1);
     }
     this.groupingPage();
     this.currentPageData();
