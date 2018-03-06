@@ -3,4 +3,5 @@ export class Student {
     name: string;
     standard: number;
     section: string;
+    isEligibleToDisplay : boolean;
 }

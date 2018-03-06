@@ -63,14 +63,8 @@ export class TableComponent implements OnInit {
 
   private currentPageData() {
     this.tableDisplayData = this.groupedPages[this.currentPage];
-    console.log('Test', this.tableDisplayData);
+    console.log('this.current page data',this.tableDisplayData)
   }
-
-  // private mySorter(a, b) {
-  //   let x = a.title.toLowerCase();
-  //   let y = b.title.toLowerCase();
-  //   return ((x < y) ? -1 : ((x > y) ? 1 : 0));
-  // }
 
   private onOptionsSelected(event) {
     this.itemsPerPage = event;

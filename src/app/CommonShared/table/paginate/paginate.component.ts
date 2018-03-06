@@ -25,8 +25,6 @@ export class PaginateComponent implements OnInit {
     });
   }
 
-
-
   ngOnInit() {
     this.getRangeOfPages();
   }

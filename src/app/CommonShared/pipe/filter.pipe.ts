@@ -10,8 +10,13 @@ export class FilterPipe implements PipeTransform {
     return items.filter(it => {
       let found = false;
       for (let key in it) {
-        if (typeof it[key] !== "number") {
+        if (typeof it[key] !== "number" && typeof it[key] !== "boolean") {
           if (it[key].toLowerCase().includes(searchText)) {
+            found = true;
+          }
+        }else if(typeof it[key] === "boolean"){
+          let dummy=it[key].toString();
+          if (dummy.toLowerCase().includes(searchText)) {
             found = true;
           }
         }

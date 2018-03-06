@@ -31,3 +31,7 @@ li{
   background: #fff;
   vertical-align: top;
 }
+
+.pointer{
+  cursor: pointer;
+}
