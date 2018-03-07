@@ -5,7 +5,7 @@ import { Column } from '../interface/column.interface';
 export class headerKeysPipe implements PipeTransform {  
     transform(value, args: string[]) {
         let firstrow = value;
-        console.log(firstrow, '====================firstrow')
+        //console.log(firstrow, '====================firstrow')
         let columns = [];
         for (let key in firstrow) {
             let obj : Column = {
@@ -14,7 +14,8 @@ export class headerKeysPipe implements PipeTransform {
             }
             columns.push(obj);
         }
-        console.log(columns, '====================columns')
+        //columns[0].isOptional=true;
+        //console.log(columns, '====================columns')
         return columns;
     }
 }

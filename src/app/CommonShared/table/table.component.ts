@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { students } from '../mockdata/students.mock';
 import { tableService } from './table.service';
+
+import { headerKeysPipe } from '../pipe/headerkeys.pipe';
 /**
  * This component has generic feature which will fetch the first row of the data set
  * Can make the Columns optional using the checkbox
@@ -8,7 +10,8 @@ import { tableService } from './table.service';
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
-  styleUrls: ['./table.component.css']
+  styleUrls: ['./table.component.css'],
+  providers:[headerKeysPipe]
 })
 export class TableComponent implements OnInit {
   //http://jsfiddle.net/SAWsA/10654/ == Table Paginations
@@ -25,13 +28,16 @@ export class TableComponent implements OnInit {
   isDesc: boolean = true;
   column: string = 'id';
   direction: number;
+  headerRow:any;
+
    // Change sort function to this: 
    sort(property){
     this.isDesc = !this.isDesc; //change the direction    
     this.column = property;
     this.direction = this.isDesc ? 1 : -1;
    }
-  constructor( private tableservice:tableService) {
+  constructor( private tableservice:tableService,
+    private headerPipe: headerKeysPipe) {
 
 }
 
@@ -41,6 +47,7 @@ export class TableComponent implements OnInit {
       this.displayData[i].name = 'Test' + i + 1;
       this.displayData[i].standard = Math.floor(100/i+1);
     }
+    this.headerRow = this.headerPipe.transform(this.displayData[0],['test']);
     this.groupingPage();
     this.currentPageData();
   }
@@ -71,6 +78,21 @@ export class TableComponent implements OnInit {
     this.groupingPage();
     this.currentPageData();
     this.tableservice.sendMessage(this.itemsPerPage);
+  }
+
+  private OptionalFields(col){
+    col.isOptional=!col.isOptional;
+    let Col=col;
+    // this.headerRow = this.headerPipe.transform(this.displayData[0],['test']);
+    for(let i=0;i<this.headerRow.length;i++){
+      if(Col.name == this.headerRow[i].name){
+        this.headerRow[i].isOptional=Col.isOptional;
+      }
+    }
+    console.log(this.headerRow)
+    this.groupingPage();
+    this.currentPageData();
+    //col.isOptional=(col.isOptional)?true:false
   }
 }
 

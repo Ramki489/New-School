@@ -19,6 +19,11 @@ export class FilterPipe implements PipeTransform {
           if (dummy.toLowerCase().includes(searchText)) {
             found = true;
           }
+        }else if (typeof it[key] === "number"){
+          let no = ''+it[key];
+          if(no.includes(searchText+"")){
+            found= true;
+          }
         }
       }
       if (found) {
